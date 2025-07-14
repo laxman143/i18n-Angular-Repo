@@ -1,0 +1,25 @@
+{
+  "hello": "Hello",
+  "welcome": "Welcome",
+  "product": "Product",
+  "customer": "Customer",
+  "language": "Language",
+  "english": "English",
+  "spanish": "Spanish",
+  "home": "Home",
+  "about": "About",
+  "contact": "Contact",
+  "Radhe":"Radhe",
+  "DATASOURCE_NAME": "DATASOURCE_NAME",
+  "object": {
+    "object1": "object1",
+    "object2": "object2",
+    "nexted1" : {
+        "nexted2" : {
+            "nexted3": {
+                "nexted4": "nexted4"
+            }
+        }
+    }
+  }
+}

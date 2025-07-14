@@ -1,0 +1,13 @@
+{
+  "hello": "Hello from public",
+  "welcome": "Welcome from public",
+  "product": "Product",
+  "customer": "Customer",
+  "language": "Language",
+  "english": "English",
+  "spanish": "Spanish",
+  "object": {
+    "object1": "object1",
+    "object2": "object2"
+  }
+} 

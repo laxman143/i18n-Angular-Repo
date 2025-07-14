@@ -1,0 +1,47 @@
+<!-- <nav>
+<a routerLink="/product">Product</a> <br/>
+
+<a routerLink="/customer">Customer</a> <br/>
+</nav> -->
+<div class="app-container">
+ 
+  <header>
+    <h1>{{ 'hello' | transloco }}</h1>
+    <h2>{{ 'welcome' | transloco }}</h2>
+    <h2>{{ 'Ram' | transloco }}</h2>
+    <h2>Test</h2>
+    <label>{{1 > 0 ?
+      4 :
+       5}}</label>
+    <label>{{11 > 0 ? 24 : 25}}</label>
+    <span>---</span>
+    <h3>{{ 'object.object3' | transloco }}</h3>
+    <h3>{{ "object.object3" | transloco }}</h3>
+    <label class="form-label" for="datasourceName">{{ 'datasources.DATASOURCE_NAME' | transloco }}</label>
+
+    <h3>{{ 'object.nexted1.nexted2.nexted3.nexted4' | transloco }}</h3>
+    {{ date  | translocoDate: { timeStyle: 'short', dateStyle: 'medium' } }}
+    <div class="language-switcher">
+      <span>{{ 'language' | transloco }}: </span>
+      <button 
+        [class.active]="getCurrentLang() === 'en'" 
+        (click)="switchLanguage('en')">
+        {{ 'english' | transloco }}
+      </button>
+      <button 
+        [class.active]="getCurrentLang() === 'es'" 
+        (click)="switchLanguage('es')">
+        {{ 'spanish' | transloco }}
+      </button>
+    </div>
+  </header>
+
+  <nav>
+    <a [routerLink]="['/product']">{{ 'product' | transloco }}</a>
+    <a [routerLink]="['/customer']">{{ 'customer' | transloco }}</a>
+  </nav>
+  
+  <main>
+    <router-outlet />
+  </main>
+</div>

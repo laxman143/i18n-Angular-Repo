@@ -1,0 +1,17 @@
+{
+  "hello": "Hola",
+  "welcome": "Bienvenido",
+  "product": "Producto",
+  "customer": "Cliente",
+  "language": "Idioma",
+  "english": "Inglés",
+  "spanish": "Español",
+  "home": "Inicio",
+  "about": "Acerca de",
+  "contact": "Contacto",
+  "object": {
+    "object1": "object1"
+  }
+  
+  
+}
