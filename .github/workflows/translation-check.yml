@@ -23,5 +23,5 @@ jobs:
         run: npm ci
 
       - name: Run missing-translation
-        run: npx missing-translation ./src ./src/assets/i18n/en.json ./src/assets/i18n/es.json
+        run: npx missing-translation@latest ./src ./src/assets/i18n/en.json ./src/assets/i18n/es.json
 
