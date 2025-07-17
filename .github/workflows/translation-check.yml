@@ -25,3 +25,22 @@ jobs:
       - name: Run missing-translation
         run: npx missing-translation@latest ./src ./src/assets/i18n/en.json ./src/assets/i18n/es.json
 
+      - name: Fail job if missing translations found
+        run: |
+          echo "Checking for missing translations in log..."
+
+          MISSING_STATIC=$(grep "Total missing static translations:" translation-summary.log | awk '{print $5}')
+          MISSING_PIPE=$(grep "Missing Transloco Pipe Keys in translation json file:" translation-summary.log | awk '{print $9}')
+          MISSING_OTHER=$(grep "Total missing keys in other translation files compared to en.json:" translation-summary.log | awk '{print $10}')
+
+          echo "🟡 Total missing static translations: $MISSING_STATIC"
+          echo "🟡 Missing Transloco Pipe Keys: $MISSING_PIPE"
+          echo "🟡 Total missing keys in other translation files: $MISSING_OTHER"
+
+          if [ "$MISSING_STATIC" -gt 0 ] || [ "$MISSING_PIPE" -gt 0 ] || [ "$MISSING_OTHER" -gt 0 ]; then
+            echo "❌ Translation issues detected. Failing the job..."
+            exit 1
+          else
+            echo "✅ No missing translation issues found."
+          fi
+
