@@ -22,33 +22,37 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run missing-translation and generate report
+      - name: Run missing-translation and create report
         run: |
+          echo "Running translation check..."
           npx missing-translation@latest ./src ./src/assets/i18n/en.json ./src/assets/i18n/es.json > translation-summary.log
+          echo "Translation summary:"
+          cat translation-summary.log
 
-      - name: Upload translation report as artifact
+      - name: Upload translation report artifact
         uses: actions/upload-artifact@v4
         with:
           name: translation-report
           path: translation-summary.log
 
-      - name: Add report link to GitHub Actions Summary
+      - name: Add download link in summary
         run: |
-          echo "## 📄 Translation Report" >> $GITHUB_STEP_SUMMARY
-          echo "✅ [Download translation-summary.log](../../actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
-          echo "Scroll down to the 'Artifacts' section below this page." >> $GITHUB_STEP_SUMMARY
+          echo "## 📝 Translation Report Available" >> $GITHUB_STEP_SUMMARY
+          echo "- [View Artifact Report](../../actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
+          echo "You can download the **translation-summary.log** artifact at the bottom of this Actions page." >> $GITHUB_STEP_SUMMARY
 
-      - name: Check for missing translations and fail if any found
+      - name: Check translation counts and fail if needed
         run: |
+          echo "Checking translation summary..."
           MISSING_STATIC=$(grep "Total missing static translations:" translation-summary.log | awk '{print $5}')
           MISSING_PIPE=$(grep "Missing Transloco Pipe Keys in translation json file:" translation-summary.log | awk '{print $9}')
           MISSING_OTHER=$(grep "Total missing keys in other translation files compared to en.json:" translation-summary.log | awk '{print $10}')
 
-          echo "Detected: Static=$MISSING_STATIC, Pipe=$MISSING_PIPE, Other=$MISSING_OTHER"
+          echo "Static: $MISSING_STATIC | Pipe: $MISSING_PIPE | Other: $MISSING_OTHER"
 
           if [ "$MISSING_STATIC" -gt 0 ] || [ "$MISSING_PIPE" -gt 0 ] || [ "$MISSING_OTHER" -gt 0 ]; then
             echo "❌ Missing translations found. Failing pipeline."
             exit 1
           else
-            echo "✅ No missing translations. Proceeding."
+            echo "✅ All translations present. Pipeline passes."
           fi
