@@ -25,33 +25,10 @@ jobs:
       - name: Run missing-translation
         run: npx missing-translation@latest ./src ./src/assets/i18n/en.json ./src/assets/i18n/es.json
 
-      - name: Wait for latest missing translation report
-        id: find_report
-        shell: bash
-        run: |
-          set -e
-          timeout=30  # seconds
-          interval=2  # seconds
-          elapsed=0
-          file=""
-          while [[ $elapsed -lt $timeout ]]; do
-            file=$(ls -1t missing-translations-report-*.txt 2>/dev/null | head -n 1 || true)
-            if [[ -n "$file" ]]; then
-              echo "Found report: $file"
-              echo "latest_file=$file" >> $GITHUB_OUTPUT
-              exit 0
-            fi
-            echo "Waiting for report file... ($elapsed/$timeout seconds)"
-            sleep $interval
-            elapsed=$((elapsed + interval))
-          done
-          echo "No report file found after $timeout seconds!"
-          exit 1
-
-      - name: Upload latest missing translation report
-        if: always()
+      - name: Upload missing translation report
+        if: always()  # <-- This makes sure this step runs even if previous step fails
         uses: actions/upload-artifact@v4
         with:
           name: missing-translation-report
-          path: ${{ steps.find_report.outputs.latest_file }}
+          path: missing-translations-report-*.txt
 
