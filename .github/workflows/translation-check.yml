@@ -25,7 +25,7 @@ jobs:
       - name: Run missing-translation and create report
         run: |
           echo "Running translation check..."
-          npx missing-translation ./src ./src/assets/i18n/en.json > translation-summary.log
+          npx test-missing ./src/app ./src/assets/i18n/en.json > translation-summary.log
           echo "Translation summary:"
           cat translation-summary.log
 
