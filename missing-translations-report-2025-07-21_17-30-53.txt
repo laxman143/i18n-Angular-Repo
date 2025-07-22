@@ -1,0 +1,163 @@
+MISSING TRANSLATIONS REPORT (ALL GROUPS)
+========================================
+
+
+==========================
+GROUP: srcDir = ./src/app
+i18nFile = ./src/assets/i18n/en.json
+keyPrefix = Customer
+Compared files: ./src/assets/i18n/en.json, src\assets\i18n\es.json
+==========================
+
+MISSING TRANSLATION STRUCTURE (compared to source json file like en.json):
+====================================================
+
+src\assets\i18n\es.json:
+  Missing keys:
+    - Radhe
+    - DATASOURCE_NAME
+    - object.object2
+    - object.nexted1.nexted2.nexted3.nexted4
+
+MISSING STATIC TRANSLATIONS IN HTML FILES:
+===========================================
+
+Key: Test
+  - src\app\app.component.html:12
+
+MISSING TRANLOCO PIPE KEYS:
+===========================
+
+Key: Ram
+  - src\app\app.component.html:11
+
+Key: object.object3
+  - src\app\app.component.html:18
+  - src\app\app.component.html:19
+
+Key: datasources.DATASOURCE_NAME
+  - src\app\app.component.html:20
+
+SUMMARY FOR THIS GROUP:
+=======================
+Total missing static translations: 1
+Total missing transloco pipe keys in translation json file: 4
+Total missing keys in other translation files compared to en.json: 4
+
+Group report generated on: 21/7/2025, 5:30:53 pm
+
+
+==========================
+GROUP: srcDir = ./src/app/customer
+i18nFile = ./src/assets/i18n/en.json
+keyPrefix = (none)
+Compared files: ./src/assets/i18n/en.json, src\assets\i18n\es.json
+==========================
+
+MISSING TRANSLATION STRUCTURE (compared to source json file like en.json):
+====================================================
+
+src\assets\i18n\es.json:
+  Missing keys:
+    - Radhe
+    - DATASOURCE_NAME
+    - object.object2
+    - object.nexted1.nexted2.nexted3.nexted4
+
+MISSING STATIC TRANSLATIONS IN HTML FILES:
+===========================================
+
+Key: Customer Management
+  - src\app\customer\customer.component.html:2
+
+Key: This is the customer management page.
+  - src\app\customer\customer.component.html:3
+
+Key: Customer Information12
+  - src\app\customer\customer.component.html:6
+
+Key: Here you can manage customer data and information.
+  - src\app\customer\customer.component.html:7
+
+Key: DEMO for button
+  - src\app\customer\customer.component.html:17
+
+Key: Niva Prajapati Prajapati
+  - src\app\customer\customer.component.html:21
+
+MISSING TRANLOCO PIPE KEYS:
+===========================
+
+Key: LOCO
+  - src\app\customer\customer.component.html:12
+
+SUMMARY FOR THIS GROUP:
+=======================
+Total missing static translations: 6
+Total missing transloco pipe keys in translation json file: 1
+Total missing keys in other translation files compared to en.json: 4
+
+Group report generated on: 21/7/2025, 5:30:53 pm
+
+
+==========================
+GROUP: srcDir = ./src/app/product
+i18nFile = ./src/assets/i18n/en.json
+keyPrefix = (none)
+Compared files: ./src/assets/i18n/en.json, src\assets\i18n\es.json
+==========================
+
+MISSING TRANSLATION STRUCTURE (compared to source json file like en.json):
+====================================================
+
+src\assets\i18n\es.json:
+  Missing keys:
+    - Radhe
+    - DATASOURCE_NAME
+    - object.object2
+    - object.nexted1.nexted2.nexted3.nexted4
+
+MISSING STATIC TRANSLATIONS IN HTML FILES:
+===========================================
+
+Key: Product Management
+  - src\app\product\product.component.html:2
+
+Key: This is the product management page.
+  - src\app\product\product.component.html:3
+
+Key: Product Information
+  - src\app\product\product.component.html:6
+
+Key: Here you can manage product data and inventory.
+  - src\app\product\product.component.html:7
+
+Key: Laxman
+  - src\app\product\product.component.html:17
+
+No missing transloco pipe keys found in HTML files.
+
+SUMMARY FOR THIS GROUP:
+=======================
+Total missing static translations: 5
+Total missing transloco pipe keys in translation json file: 0
+Total missing keys in other translation files compared to en.json: 4
+
+Group report generated on: 21/7/2025, 5:30:53 pm
+
+
+GLOBAL SUMMARY:
+===============
+srcDir: ./src/app, i18nFile: ./src/assets/i18n/en.json, keyPrefix: Customer
+  Static: 1, Pipe: 4, Keys: 4
+srcDir: ./src/app/customer, i18nFile: ./src/assets/i18n/en.json, keyPrefix: (none)
+  Static: 6, Pipe: 1, Keys: 4
+srcDir: ./src/app/product, i18nFile: ./src/assets/i18n/en.json, keyPrefix: (none)
+  Static: 5, Pipe: 0, Keys: 4
+
+TOTALS ACROSS ALL GROUPS:
+  Total missing static translations: 12
+  Total missing transloco pipe keys in translation json file: 5
+  Total missing keys in other translation files compared to en.json: 12
+
+Report generated on: 21/7/2025, 5:30:53 pm

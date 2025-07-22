@@ -40,7 +40,14 @@
     <a [routerLink]="['/product']">{{ 'product' | transloco }}</a>
     <a [routerLink]="['/customer']">{{ 'customer' | transloco }}</a>
   </nav>
-  
+  <div class="pt-3" *ngIf="isFRSampleEnabledWorkspaceLevel">
+    <h5 class="fw-bold m-0">{{ 'catalog.rule.viewFailedRecord.showFailedRecordSample' | transloco }}</h5>
+    @if (ruleDetails.captureFailedRecords) {
+      <span> {{ 'catalog.rule.viewFailedRecord.enabledFRSample' | transloco }} </span>
+    } @else {
+      <span> {{ 'catalog.rule.viewFailedRecord.disabledFRSample' | transloco }} </span>
+    }
+  </div>
   <main>
     <router-outlet />
   </main>

@@ -1,24 +1,28 @@
-MISSING TRANSLATIONS REPORT
-==========================
+
+==== GROUP 1: ./src/app ====
+i18nFile: ./src/assets/i18n/en.json
+keyPrefix: (none)
+Compared files:
+  - ./src/assets/i18n/en.json
+  - src\assets\i18n\es.json
 
 
+---- MISSING TRANSLATION STRUCTURE ----
 
-MISSING TRANSLATION STRUCTURE (compared to source json file like en.json):
-====================================================
-
-./src/assets/i18n/es.json:
+src\assets\i18n\es.json:
   Missing keys:
     - Radhe
     - DATASOURCE_NAME
     - object.object2
     - object.nexted1.nexted2.nexted3.nexted4
 
-
-MISSING STATIC TRANSLATIONS IN HTML FILES:
-===========================================
+---- STATIC TRANSLATIONS ----
 
 Key: Test
   - src\app\app.component.html:12
+
+Key: } @else {
+  - src\app\app.component.html:46
 
 Key: Customer Management
   - src\app\customer\customer.component.html:2
@@ -26,11 +30,17 @@ Key: Customer Management
 Key: This is the customer management page.
   - src\app\customer\customer.component.html:3
 
-Key: Customer Information
+Key: Customer Information12
   - src\app\customer\customer.component.html:6
 
 Key: Here you can manage customer data and information.
   - src\app\customer\customer.component.html:7
+
+Key: DEMO for button
+  - src\app\customer\customer.component.html:17
+
+Key: Niva Prajapati Prajapati
+  - src\app\customer\customer.component.html:21
 
 Key: Product Management
   - src\app\product\product.component.html:2
@@ -44,9 +54,10 @@ Key: Product Information
 Key: Here you can manage product data and inventory.
   - src\app\product\product.component.html:7
 
+Key: Laxman
+  - src\app\product\product.component.html:17
 
-MISSING TRANLOCO PIPE KEYS:
-===========================
+**** TRANLOCO PIPE KEYS ****
 
 Key: Ram
   - src\app\app.component.html:11
@@ -58,11 +69,21 @@ Key: object.object3
 Key: datasources.DATASOURCE_NAME
   - src\app\app.component.html:20
 
+Key: catalog.rule.viewFailedRecord.showFailedRecordSample
+  - src\app\app.component.html:44
 
-SUMMARY:
-========
-Total missing static translations: 9
-Total missing transloco pipe keys in translation json file: 4
+Key: catalog.rule.viewFailedRecord.enabledFRSample
+  - src\app\app.component.html:46
+
+Key: catalog.rule.viewFailedRecord.disabledFRSample
+  - src\app\app.component.html:48
+
+Key: LOCO
+  - src\app\customer\customer.component.html:12
+
+>>>> SUMMARY <<<<
+Total missing static translations: 13
+Total missing transloco pipe keys in translation json file: 8
 Total missing keys in other translation files compared to en.json: 4
 
-Report generated on: 8/7/2025, 3:46:55 pm
+Group report generated on: 22/7/2025, 12:58:00 pm
