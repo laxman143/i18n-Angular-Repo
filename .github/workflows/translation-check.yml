@@ -25,22 +25,10 @@ jobs:
       - name: Run missing-translation
         run: npx missing-translation@latest ./src ./src/assets/i18n/en.json ./src/assets/i18n/es.json
 
-      - name: List report files
-        run: ls -l missing-translations-report-*.txt || echo "No report files found"
-
-      - name: Find latest missing translation report
-        id: find_report
-        run: |
-          latest_file=$(ls -1t missing-translations-report-*.txt | head -n 1)
-          echo "latest_file=$latest_file" >> $GITHUB_OUTPUT
-
-      - name: Debug print latest file
-        run: echo "Latest file is ${{ steps.find_report.outputs.latest_file }}"
-
-      - name: Upload latest missing translation report
-        if: always()
+      - name: Upload missing translation report
+        if: always()  # <-- This makes sure this step runs even if previous step fails
         uses: actions/upload-artifact@v4
         with:
           name: missing-translation-report
-          path: ${{ steps.find_report.outputs.latest_file }}
+          path: missing-translations-report-*.txt
 
