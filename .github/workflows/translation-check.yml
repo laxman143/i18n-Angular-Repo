@@ -27,7 +27,7 @@ jobs:
 
       - name: Upload missing translation report
         if: always()  # <-- This makes sure this step runs even if previous step fails
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: missing-translation-report
           path: missing-translations-report-*.txt
