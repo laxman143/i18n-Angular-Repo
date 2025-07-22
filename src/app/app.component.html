@@ -4,7 +4,7 @@
 <a routerLink="/customer">Customer</a> <br/>
 </nav> -->
 <div class="app-container">
- 
+
   <header>
     <h1>{{ 'hello' | transloco }}</h1>
     <h2>{{ 'welcome' | transloco }}</h2>
@@ -12,7 +12,7 @@
     <h2>Test</h2>
     <label>{{1 > 0 ?
       4 :
-       5}}</label>
+      5}}</label>
     <label>{{11 > 0 ? 24 : 25}}</label>
     <span>---</span>
     <h3>{{ 'object.object3' | transloco }}</h3>
@@ -20,17 +20,13 @@
     <label class="form-label" for="datasourceName">{{ 'datasources.DATASOURCE_NAME' | transloco }}</label>
 
     <h3>{{ 'object.nexted1.nexted2.nexted3.nexted4' | transloco }}</h3>
-    {{ date  | translocoDate: { timeStyle: 'short', dateStyle: 'medium' } }}
+    {{ date | translocoDate: { timeStyle: 'short', dateStyle: 'medium' } }}
     <div class="language-switcher">
       <span>{{ 'language' | transloco }}: </span>
-      <button 
-        [class.active]="getCurrentLang() === 'en'" 
-        (click)="switchLanguage('en')">
+      <button [class.active]="getCurrentLang() === 'en'" (click)="switchLanguage('en')">
         {{ 'english' | transloco }}
       </button>
-      <button 
-        [class.active]="getCurrentLang() === 'es'" 
-        (click)="switchLanguage('es')">
+      <button [class.active]="getCurrentLang() === 'es'" (click)="switchLanguage('es')">
         {{ 'spanish' | transloco }}
       </button>
     </div>
@@ -40,14 +36,14 @@
     <a [routerLink]="['/product']">{{ 'product' | transloco }}</a>
     <a [routerLink]="['/customer']">{{ 'customer' | transloco }}</a>
   </nav>
-  <div class="pt-3" *ngIf="isFRSampleEnabledWorkspaceLevel">
+<!--   <div class="pt-3" *ngIf="isFRSampleEnabledWorkspaceLevel">
     <h5 class="fw-bold m-0">{{ 'catalog.rule.viewFailedRecord.showFailedRecordSample' | transloco }}</h5>
     @if (ruleDetails.captureFailedRecords) {
-      <span> {{ 'catalog.rule.viewFailedRecord.enabledFRSample' | transloco }} </span>
+    <span> {{ 'catalog.rule.viewFailedRecord.enabledFRSample' | transloco }} </span>
     } @else {
-      <span> {{ 'catalog.rule.viewFailedRecord.disabledFRSample' | transloco }} </span>
+    <span> {{ 'catalog.rule.viewFailedRecord.disabledFRSample' | transloco }} </span>
     }
-  </div>
+  </div> -->
   <main>
     <router-outlet />
   </main>
