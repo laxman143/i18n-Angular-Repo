@@ -32,3 +32,20 @@ jobs:
           name: missing-translation-report
           path: missing-translations-report-*.txt
 
+      - name: Install rclone
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
+
+      - name: Set up rclone config for Google Drive
+        run: |
+          mkdir -p ~/.config/rclone
+          echo '[gdrive]' > ~/.config/rclone/rclone.conf
+          echo 'type = drive' >> ~/.config/rclone/rclone.conf
+          echo 'scope = drive' >> ~/.config/rclone/rclone.conf
+          echo 'service_account_file = /tmp/gdrive_service_account.json' >> ~/.config/rclone/rclone.conf
+          echo "${{ secrets.GDRIVE_SERVICE_ACCOUNT }}" > /tmp/gdrive_service_account.json
+
+      - name: Upload report to Google Drive
+        run: |
+          rclone copy missing-translations-report-*.txt gdrive:/Missing-translation/
+
