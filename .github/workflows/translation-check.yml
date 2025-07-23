@@ -25,13 +25,6 @@ jobs:
       - name: Run missing-translation
         run: npx missing-translation@latest ./src ./src/assets/i18n/en.json ./src/assets/i18n/es.json
 
-      - name: Upload missing translation report
-        if: always()  # <-- This makes sure this step runs even if previous step fails
-        uses: actions/upload-artifact@v4
-        with:
-          name: missing-translation-report
-          path: missing-translations-report-*.txt
-
       - name: Install rclone
         run: |
           curl https://rclone.org/install.sh | sudo bash
@@ -46,6 +39,7 @@ jobs:
           echo "${{ secrets.GDRIVE_SERVICE_ACCOUNT }}" > /tmp/gdrive_service_account.json
 
       - name: Upload report to Google Drive
+        if: always()
         run: |
           rclone copy missing-translations-report-*.txt gdrive:/Missing-translation/
 
