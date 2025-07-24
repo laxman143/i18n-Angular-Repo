@@ -40,5 +40,6 @@ jobs:
           echo 'scope = drive' >> ~/.config/rclone/rclone.conf
           echo 'service_account_file = /tmp/gdrive_service_account.json' >> ~/.config/rclone/rclone.conf
           echo "${{ secrets.GDRIVE_SERVICE_ACCOUNT }}" > /tmp/gdrive_service_account.json
+          cat /tmp/gdrive_service_account.json  # Debug: REMOVE THIS LINE AFTER TESTING
           rclone copy missing-translations-report-*.txt gdrive:/Missing-translation/
 
