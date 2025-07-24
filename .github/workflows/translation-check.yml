@@ -23,35 +23,22 @@ jobs:
         run: npm ci
 
       - name: Run missing-translation check
-        id: translation-check
         run: |
-          echo "Running missing-translation check..."
-          npx missing-translation@latest ./src ./src/assets/i18n/en.json ./src/assets/i18n/es.json
-        continue-on-error: true
+          echo "🔍 Running missing-translation check..."
+          
+          # Run the tool and capture everything to a log file
+          npx missing-translation@latest ./src ./src/assets/i18n/en.json ./src/assets/i18n/es.json 2>&1 | tee translation-check-log.txt
+          
+          # The tool will exit with code 1 if issues are found, which will fail this step
+          # That's exactly what we want - pipeline fails when there are issues
 
-      - name: List generated report files
-        run: |
-          echo "Files in current directory:"
-          ls -la
-          echo "Report files generated:"
-          ls -la missing-translations-report-*.txt || echo "No report files found"
-
-      - name: Check translation results and fail if issues found
-        run: |
-          if [ "${{ steps.translation-check.outcome }}" = "failure" ]; then
-            echo "❌ Missing translations detected! Check the report files for details."
-            echo "Pipeline will fail to prevent merge until translations are fixed."
-            exit 1
-          else
-            echo "✅ No missing translations found!"
-          fi
-
-      - name: Upload translation reports
-        if: always()  # Upload artifacts even if pipeline fails
+      - name: Upload all files (reports and logs)
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: translation-reports
           path: |
             missing-translations-report-*.txt
+            translation-check-log.txt
             *.txt
           if-no-files-found: warn
