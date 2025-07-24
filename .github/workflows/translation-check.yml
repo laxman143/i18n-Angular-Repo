@@ -27,13 +27,15 @@ jobs:
 
       - name: Install rclone
         run: |
-         sudo apt-get update
-         sudo apt-get install -y rclone
+          sudo apt-get update
+          sudo apt-get install -y rclone
 
       - name: Check rclone version and location
         run: |
-         which rclone
-         rclone version
+          echo "PATH: $PATH"
+          which rclone
+          rclone version
+          ls -l $(which rclone)
 
       - name: Set up rclone config for Google Drive
         run: |
