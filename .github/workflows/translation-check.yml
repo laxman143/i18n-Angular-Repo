@@ -22,23 +22,68 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run missing-translation check
+      - name: Run missing-translation check and capture output
+        id: translation-check
         run: |
           echo "🔍 Running missing-translation check..."
           
-          # Run the tool and capture everything to a log file
-          npx missing-translation@latest ./src ./src/assets/i18n/en.json ./src/assets/i18n/es.json 2>&1 | tee translation-check-log.txt
+          # Capture both stdout and stderr, and the exit code
+          set +e  # Don't exit on error
+          npx missing-translation@latest ./src ./src/assets/i18n/en.json ./src/assets/i18n/es.json > translation-output.log 2>&1
+          exit_code=$?
+          set -e  # Re-enable exit on error
           
-          # The tool will exit with code 1 if issues are found, which will fail this step
-          # That's exactly what we want - pipeline fails when there are issues
+          echo "Exit code: $exit_code"
+          echo "=== Translation Check Output ==="
+          cat translation-output.log
+          echo "================================="
+          
+          # Set outputs for later steps
+          echo "exit_code=$exit_code" >> $GITHUB_OUTPUT
+          echo "has_issues=$([ $exit_code -ne 0 ] && echo 'true' || echo 'false')" >> $GITHUB_OUTPUT
 
-      - name: Upload all files (reports and logs)
-        if: always()
+      - name: List all generated files
+        run: |
+          echo "Files in current directory:"
+          ls -la
+          echo ""
+          echo "Looking for report files:"
+          find . -name "*missing*" -type f || echo "No files with 'missing' in name"
+          find . -name "*report*" -type f || echo "No files with 'report' in name"
+          find . -name "*.txt" -type f || echo "No .txt files found"
+
+      - name: Create fallback report if none exists
+        if: steps.translation-check.outputs.has_issues == 'true'
+        run: |
+          if [ ! -f missing-translations-report-*.txt ]; then
+            echo "No report file found, creating fallback report..."
+            echo "MISSING TRANSLATIONS DETECTED" > missing-translations-fallback-report.txt
+            echo "=========================" >> missing-translations-fallback-report.txt
+            echo "Date: $(date)" >> missing-translations-fallback-report.txt
+            echo "" >> missing-translations-fallback-report.txt
+            echo "Tool output:" >> missing-translations-fallback-report.txt
+            cat translation-output.log >> missing-translations-fallback-report.txt
+          fi
+
+      - name: Check translation results and fail if issues found
+        run: |
+          if [ "${{ steps.translation-check.outputs.has_issues }}" = "true" ]; then
+            echo "❌ Missing translations detected! (Exit code: ${{ steps.translation-check.outputs.exit_code }})"
+            echo "Check the uploaded artifacts for detailed report."
+            echo "Pipeline will fail to prevent merge until translations are fixed."
+            exit 1
+          else
+            echo "✅ No missing translations found!"
+          fi
+
+      - name: Upload translation reports and logs
+        if: always()  # Upload artifacts even if pipeline fails
         uses: actions/upload-artifact@v4
         with:
           name: translation-reports
           path: |
             missing-translations-report-*.txt
-            translation-check-log.txt
+            missing-translations-fallback-report.txt
+            translation-output.log
             *.txt
           if-no-files-found: warn
