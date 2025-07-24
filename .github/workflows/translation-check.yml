@@ -22,24 +22,36 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run missing-translation and capture output
+      - name: Run missing-translation check
+        id: translation-check
         run: |
-          npx missing-translation@latest ./src ./src/assets/i18n/en.json ./src/assets/i18n/es.json | tee missing-translations-output.txt
+          echo "Running missing-translation check..."
+          npx missing-translation@latest ./src ./src/assets/i18n/en.json ./src/assets/i18n/es.json
+        continue-on-error: true
 
-      - name: List created files
+      - name: List generated report files
         run: |
           echo "Files in current directory:"
           ls -la
-          echo "Content of missing-translations-output.txt:"
-          cat missing-translations-output.txt || echo "File not found"
+          echo "Report files generated:"
+          ls -la missing-translations-report-*.txt || echo "No report files found"
 
-      - name: Upload all potential report files
-        if: always()
+      - name: Check translation results and fail if issues found
+        run: |
+          if [ "${{ steps.translation-check.outcome }}" = "failure" ]; then
+            echo "❌ Missing translations detected! Check the report files for details."
+            echo "Pipeline will fail to prevent merge until translations are fixed."
+            exit 1
+          else
+            echo "✅ No missing translations found!"
+          fi
+
+      - name: Upload translation reports
+        if: always()  # Upload artifacts even if pipeline fails
         uses: actions/upload-artifact@v4
         with:
           name: translation-reports
           path: |
+            missing-translations-report-*.txt
             *.txt
-            missing-*
-            *report*
           if-no-files-found: warn
