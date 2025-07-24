@@ -8,18 +8,18 @@
   <header>
     <h1>{{ 'hello' | transloco }}</h1>
     <h2>{{ 'welcome' | transloco }}</h2>
-    <h2>{{ 'Ram' | transloco }}</h2>
-    <h2>Test1</h2>
+    <!-- <h2>{{ 'Ram' | transloco }}</h2> -->
+  <!--   <h2>Test1</h2>
     <h2>Rohan</h2>
-    <h2>Mohit</h2>
+    <h2>Mohit</h2> -->
     <label>{{1 > 0 ?
       4 :
       5}}</label>
     <label>{{11 > 0 ? 24 : 25}}</label>
     <span>---</span>
-    <h3>{{ 'object.object3' | transloco }}</h3>
+   <!--  <h3>{{ 'object.object3' | transloco }}</h3>
     <h3>{{ "object.object3" | transloco }}</h3>
-    <label class="form-label" for="datasourceName">{{ 'datasources.DATASOURCE_NAME' | transloco }}</label>
+    <label class="form-label" for="datasourceName">{{ 'datasources.DATASOURCE_NAME' | transloco }}</label> -->
 
     <h3>{{ 'object.nexted1.nexted2.nexted3.nexted4' | transloco }}</h3>
     {{ date | translocoDate: { timeStyle: 'short', dateStyle: 'medium' } }}

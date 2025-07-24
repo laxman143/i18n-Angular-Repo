@@ -9,8 +9,18 @@
   "home": "Home",
   "about": "About",
   "contact": "Contact",
+  "Radhe":"Radhe",
+  "DATASOURCE_NAME": "DATASOURCE_NAME",
   "object": {
-    "object1": "object1"
+    "object1": "object1",
+    "object2": "object2",
+    "nexted1" : {
+        "nexted2" : {
+            "nexted3": {
+                "nexted4": "nexted4"
+            }
+        }
+    }
   },
   "Customer":{
     "Rashmi":"Rashmi1"
