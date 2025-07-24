@@ -28,7 +28,7 @@ jobs:
       - name: Set up rclone
         uses: rclone/setup-rclone@v1
         with:
-        rclone-version: 'latest'
+          rclone-version: 'latest'
 
       - name: Set up rclone config for Google Drive
         run: |
