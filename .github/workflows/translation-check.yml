@@ -68,5 +68,4 @@ jobs:
           name: translation-reports
           path: |
             missing-translations-report-*.txt
-            translation-output.log
           if-no-files-found: warn
