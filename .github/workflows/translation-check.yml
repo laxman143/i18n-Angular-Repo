@@ -17,11 +17,55 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Run missing-translation
-        run: npx missing-translation@latest ./src ./src/assets/i18n/en.json ./src/assets/i18n/es.json
+      - name: Run missing-translation check and capture output
+        id: translation-check
+        run: |
+          echo "🔍 Running missing-translation check..."
+          
+          # Capture both stdout and stderr, and the exit code
+          set +e  # Don't exit on error
+          npx missing-translation@latest ./src ./src/assets/i18n/en.json > translation-output.log 2>&1
+          exit_code=$?
+          set -e  # Re-enable exit on error
+          
+          echo "Exit code: $exit_code"
+          echo "=== Translation Check Output ==="
+          cat translation-output.log
+          echo "================================="
+          
+          # Set outputs for later steps
+          echo "exit_code=$exit_code" >> $GITHUB_OUTPUT
+          echo "has_issues=$([ $exit_code -ne 0 ] && echo 'true' || echo 'false')" >> $GITHUB_OUTPUT
 
+      - name: List generated report files
+        run: |
+          echo "Generated report files:"
+          ls -la missing-translations-report-*.txt || echo "No timestamped report files found"
+          echo ""
+          echo "All .txt files:"
+          ls -la *.txt || echo "No .txt files found"
+
+      - name: Check translation results and fail if issues found
+        run: |
+          if [ "${{ steps.translation-check.outputs.has_issues }}" = "true" ]; then
+            echo "❌ Missing translations detected! (Exit code: ${{ steps.translation-check.outputs.exit_code }})"
+            echo "Check the uploaded artifacts for detailed report."
+            echo "Pipeline will fail to prevent merge until translations are fixed."
+            exit 1
+          else
+            echo "✅ No missing translations found!"
+          fi
+
+      - name: Upload translation reports and logs
+        if: always()  # Upload artifacts even if pipeline fails
+        uses: actions/upload-artifact@v4
+        with:
+          name: translation-reports
+          path: |
+            missing-translations-report-*.txt
+          if-no-files-found: warn
