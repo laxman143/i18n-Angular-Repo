@@ -29,7 +29,7 @@ jobs:
           
           # Capture both stdout and stderr, and the exit code
           set +e  # Don't exit on error
-          npx test-missing@latest ./src ./src/assets/i18n/en.json > translation-output.log 2>&1
+          npx missing-translation@latest ./src ./src/assets/i18n/en.json > translation-output.log 2>&1
           exit_code=$?
           set -e  # Re-enable exit on error
           
